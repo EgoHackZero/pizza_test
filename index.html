@@ -37,14 +37,29 @@
             margin: auto;
             padding: 20px;
         }
-        .carousel {
-            width: 100%;
-            overflow: hidden;
+        .banner {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .banner-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
             position: relative;
         }
-        .carousel img {
+        .banner-item img {
             width: 100%;
-            display: none;
+            height: auto;
+        }
+        .banner-description {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
         }
         .dots {
             text-align: center;
@@ -57,8 +72,9 @@
             background-color: #bbb;
             border-radius: 50%;
             display: inline-block;
+            cursor: pointer;
         }
-        .active {
+        .dot.active {
             background-color: #717171;
         }
         .menu {
@@ -97,10 +113,19 @@
 
     <div class="container">
         <h2>Актуальные акции</h2>
-        <div class="carousel">
-            <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k%2fPbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Акция 1" style="display: block;">
-            <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Акция 2">
-            <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k%2fPbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Акция 3">
+        <div class="banner">
+            <div class="banner-item">
+                <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Скидка 20%">
+                <div class="banner-description">Скидка 20% на все пиццы! <a href="#">Заказать</a></div>
+            </div>
+            <div class="banner-item">
+                <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k%2fPbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Вторая пицца в подарок">
+                <div class="banner-description">Вторая пицца в подарок! <a href="#">Подробнее</a></div>
+            </div>
+            <div class="banner-item">
+                <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Бесплатная доставка">
+                <div class="banner-description">Бесплатная доставка при заказе от 1000 руб. <a href="#">Заказать</a></div>
+            </div>
         </div>
         <div class="dots">
             <span class="dot active"></span>
