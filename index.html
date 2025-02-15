@@ -37,29 +37,28 @@
             margin: auto;
             padding: 20px;
         }
-        .banner {
-            display: flex;
-            overflow-x: scroll;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        .banner-item {
-            flex: 0 0 100%;
-            scroll-snap-align: start;
+        .carousel {
             position: relative;
+            width: 100%;
+            max-height: 300px;
+            overflow: hidden;
         }
-        .banner-item img {
+        .carousel img {
             width: 100%;
             height: auto;
+            display: none;
         }
-        .banner-description {
+        .carousel img.active {
+            display: block;
+        }
+        .carousel .description {
             position: absolute;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             color: white;
             width: 100%;
+            text-align: center;
             padding: 10px;
-            box-sizing: border-box;
         }
         .dots {
             text-align: center;
@@ -113,25 +112,19 @@
 
     <div class="container">
         <h2>Актуальные акции</h2>
-        <div class="banner">
-            <div class="banner-item">
-                <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Скидка 20%">
-                <div class="banner-description">Скидка 20% на все пиццы! <a href="#">Заказать</a></div>
-            </div>
-            <div class="banner-item">
-                <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k%2fPbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Вторая пицца в подарок">
-                <div class="banner-description">Вторая пицца в подарок! <a href="#">Подробнее</a></div>
-            </div>
-            <div class="banner-item">
-                <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Бесплатная доставка">
-                <div class="banner-description">Бесплатная доставка при заказе от 1000 руб. <a href="#">Заказать</a></div>
-            </div>
+        <div class="carousel">
+            <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k/PbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Скидка 20%" class="active">
+            <img src="https://pngimg.com/uploads/pizza/pizza_PNG7151.png" alt="Вторая пицца в подарок">
+            <img src="https://th.bing.com/th/id/R.2d5ff646ce6dedd74e7be957551264ae?rik=k/PbQRhVuMZUeg&pid=ImgRaw&r=0" alt="Бесплатная доставка">
+            <div class="description">Актуальные скидки и предложения! <a href="#">Подробнее</a></div>
         </div>
         <div class="dots">
             <span class="dot active"></span>
             <span class="dot"></span>
             <span class="dot"></span>
         </div>
+
+        <h2 id="menu">Меню</h2>
 
         <h2 id="menu">Меню</h2>
         <ul class="menu">
@@ -157,19 +150,30 @@
     </footer>
 
     <script>
-        let images = document.querySelectorAll('.carousel img');
+        let slides = document.querySelectorAll('.carousel img');
         let dots = document.querySelectorAll('.dot');
-        let index = 0;
+        let currentIndex = 0;
 
-        function showNextImage() {
-            images[index].style.display = 'none';
-            dots[index].classList.remove('active');
-            index = (index + 1) % images.length;
-            images[index].style.display = 'block';
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
             dots[index].classList.add('active');
         }
 
-        setInterval(showNextImage, 3000);
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }, 3000);
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                showSlide(currentIndex);
+            });
+        });
     </script>
 </body>
 </html>
